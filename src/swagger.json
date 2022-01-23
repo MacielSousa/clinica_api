@@ -1,0 +1,201 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Clinica Documentation",
+        "description": "This is an API Rentx",
+        "version": "1.0.0",
+        "contact":{
+            "email": "fmacielsousa@gmail.com"
+        }
+    },
+    "paths": {
+        "/exames":{
+            "post":{
+                "tags": ["Exame"],
+                "sumary": "Create a Exame",
+                "description": "Create a new exame",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example":{
+                                    "name": "Papanicolau",
+                                    "description": "Exam Papanicolau"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201" : {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Exam already exists"
+                    }
+                }
+            }
+        },
+        "/pacientes":{
+            "post":{
+                "tags": ["Paciente"],
+                "sumary": "Create a Pacientes",
+                "description": "Create a new Paciente",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "number"
+                                    }
+                                },
+                                "example":{
+                                    "name": "Nonato",
+                                    "sexo": "Masculino",
+                                    "cpf": 12345878925
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201" : {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Paciente already exists"
+                    }
+                }
+            }
+        },
+        "/pedidos/":{
+            "post":{
+                "tags": ["Pedido"],
+                "sumary": "Create a Pedido de Exames",
+                "description": "Create new Pedido de Exames",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "paciente_id": {
+                                        "type": "number"
+                                    },
+                                    "exames_id": {
+                                        "type": "array"
+                                    }
+                                },
+                                "example":{
+                                    "id": "Nonato",
+                                    "paciente_id": "1",
+                                    "exames_id": [
+                                        1,
+                                        2,
+                                        3
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201" : {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Pedido de Exame already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Pedido"],
+                "summary": "List all Pedidos",
+                "description": "List All Pedidos",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "$ref": "#/definitions/Pedidos"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    },
+    "definitions": {
+        "Pedidos": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "codigo":{
+                    "type": "string"
+                },
+                "ordemServico": {
+                    "type": "number"
+                },
+                "paciente_id": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "paciente":{
+                    "codigo": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "sexo": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    }
+                },
+                "exames": [
+                    {
+                        "codigo":{
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
